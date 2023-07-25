@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 
-global temp 
+
 # fonction callback quand on se connecte au broker
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -13,7 +13,8 @@ def on_connect(client, userdata, flags, rc):
 # fonction callback quand on reçoit un message
 def on_message(client, userdata, message):
     print("Received message: ", str(message.payload.decode("utf-8")))
-    temp = (str(message.payload.decode("utf-8")))
+    with open("temperature.txt", "w") as my_file:
+        my_file.write(str(message.payload.decode("utf-8")))
 
 # infos broker
 broker_address = "mqtt-dashboard.com"  # adresse du broker

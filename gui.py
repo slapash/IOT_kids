@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from receive_data import temp
+
 from PIL import Image
 
 filename = "./fan.gif"
@@ -11,7 +11,7 @@ size = gif_file.size
 del gif_file
 
 layout = [
-        [sg.Button("Play"), sg.Button("Stop"), sg.Quit()],
+        [ sg.Quit()],
         [sg.Image(filename, key = "-GIF-", size = size, background_color = "white")]
 ]
 
@@ -27,15 +27,17 @@ play = False
 while True:
     event, values = window.read(timeout = 10, timeout_key = "-TIMEOUT-")
     
+    with open("temperature.txt") as my_file:
+        temperature = my_file.read()
     # way to quit
     if event in (sg.WIN_CLOSED, "Quit", "Cancel"):
         break
 
     # play and stop button
-    if temp > 25:
+    if int(temperature.replace("°C", "")) > 28:
         play = True
 
-    if temp <= 25:
+    if int(temperature.replace("°C", "")) <= 28:
         play = False
 
 

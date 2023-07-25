@@ -38,7 +38,7 @@ data_to_send = "Hello, MQTT Broker!"
 client.loop_start()
 
 while True:
-    time.sleep(0.1)
+    time.sleep(2)
     # Publish the data to a topic
     topic = "testtopic/2"  # Replace with your desired topic name
-    client.publish(topic, readserial('/dev/cu.usbmodem14101', 9600))
+    client.publish(topic, readserial('COM10', 9600))
